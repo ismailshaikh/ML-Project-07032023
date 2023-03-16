@@ -3,9 +3,12 @@ import sys
 from src.exception import CustomException
 from src.logger import logging
 import pandas as pd
+
 from sklearn.model_selection import train_test_split
 from dataclasses import dataclass
 
+from src.components.data_transformation import DataTransformation
+from src.components.data_transformation import DataTransformationConfig
 
 
 
@@ -37,7 +40,8 @@ class DataIngestion:
         logging.info("Entered the data ingestion method or component")
         try:
             # Read Dataset { Use many Sources to collect data -> using APi's}
-            df = pd.read_csv("notebook/data/stud.csv")
+            df = pd.read_csv("D:\\Education Ds\\Ineoron_DS\\PROJECTS\\ml_project_end-to-end_07032023\\notebook\\data\\stud.csv")
+            
             logging.info("Read the Dataset as Dataframe")
             
             
@@ -66,4 +70,8 @@ class DataIngestion:
 
 if __name__=="__main__":
     obj = DataIngestion()
-    obj.initiate_data_ingestion()
+    train_data,test_data = obj.initiate_data_ingestion()
+    
+    data_transformation = DataTransformation()
+    data_transformation.initiate_data_transformation(train_data,test_data)
+    
